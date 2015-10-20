@@ -1,0 +1,27 @@
+﻿@model CheckInWeb.Models.MyCheckInViewModel
+@{
+    ViewBag.Title = "My Check Ins";
+}
+
+<h2>My Check Ins</h2>
+
+<ul>
+    @foreach (var location in Model.Locations)
+    {
+        <li>
+            <h3>@location.Name</h3>
+            <ul>
+                @foreach (var checkin in location.CheckIns.Where(u => u.User.UserName == HttpContext.Current.User.Identity.Name))
+                {
+                    <li>@checkin.Time</li>
+                }
+
+                @if(!location.CheckIns.Any(u => u.User.UserName == HttpContext.Current.User.Identity.Name))
+                {
+                    <li>You have never been here.</li>
+                }
+            </ul>
+        </li>
+    }
+</ul>
+

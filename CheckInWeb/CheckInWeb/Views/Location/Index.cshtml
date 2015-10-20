@@ -1,0 +1,46 @@
+﻿@model CheckInWeb.Models.LocationIndexViewModel
+@{
+    ViewBag.Title = "Locations";
+}
+
+
+<h2>Locations</h2>
+
+@if (User.IsInRole("Admin"))
+{
+<a id="showModal" class="btn btn-primary btn-sm" href="#" role="button">Add Location</a>
+}
+<br/>
+
+<table id="myTable" class="table">
+    <tr>
+        <th>Name</th>
+        <th>Check In</th>
+    </tr>
+    @foreach (var location in Model.Locations)
+    {
+    <tr>
+        <td>@location.Name</td>
+        <td>@Html.ActionLink("Check In", "Here", "CheckIn", new { locationId = location.Id }, new { @class = "btn" })</td>
+    </tr>
+    }
+</table>
+
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Add Location</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" id="locationName" placeholder="Name of Location">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="addLocation" type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
